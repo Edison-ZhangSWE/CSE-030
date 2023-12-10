@@ -1,3 +1,7 @@
+// Contributers:
+// Hajin Park
+// Aram Shkhyan
+
 #ifndef DATA_STRUCTURES_H
 #define DATA_STRUCTURES_H
 

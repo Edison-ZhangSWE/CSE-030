@@ -1,3 +1,8 @@
+// Contributers:
+// Miguel Diaz
+// Edison Zhang
+// Hajin Park
+
 #ifndef MOVE_MANAGER_H
 #define MOVE_MANANGER_HClass
 
