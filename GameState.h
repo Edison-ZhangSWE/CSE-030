@@ -37,14 +37,15 @@ struct GameState{
     bool currentTurn;
     int size;
     int turnCount;
-
     bool done;
+    int winner;
     Vec lastMove;
 
     GameState(){
         size = 3;
         currentTurn = 0;
         turnCount = 0;
+        winner = -1;
         done = false;
 
         lastMove.set(-1, -1);
@@ -63,6 +64,7 @@ struct GameState{
         this->size = size;
         currentTurn = 0;
         turnCount = 0;
+        winner = -1;
         done = false;
 
         lastMove.set(-1, -1);
@@ -153,6 +155,8 @@ struct GameState{
     }
 
     bool hasWon(int player){
+
+        // Check rows
         for (int i = 0; i < size; i++){
             int count = 0;
             for (int j = 0; j < size; j++){
@@ -164,6 +168,8 @@ struct GameState{
                 return true;
             }
         }
+
+        // Check columns
         for (int i = 0; i < size; i++){
             int count = 0;
             for (int j = 0; j < size; j++){
@@ -175,6 +181,8 @@ struct GameState{
                 return true;
             }
         }
+
+        // Check diagonals
         int mainDiagCount = 0;
         for (int i = 0; i < size; i++){
             if (grid[i][i] == player){
@@ -200,6 +208,7 @@ struct GameState{
     }
 
     bool play(int x, int y){
+        // Make sure move tile is empty
         if (grid[x][y] != -1){
             return false;
         }
@@ -211,9 +220,15 @@ struct GameState{
 
         if (turnCount == size * size){
             done = true;
+            if (hasWon(0) || hasWon(1)) {
+                winner = hasWon(0) ? 0 : 1;
+            } else {
+                winner = 2;
+            }
         }
         else if (hasWon(0) || hasWon(1)){
             done = true;
+            winner = hasWon(0) ? 0 : 1;
         }
 
         return true;

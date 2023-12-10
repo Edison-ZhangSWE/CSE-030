@@ -5,14 +5,13 @@
 #include <iostream>
 #include <vector>
 #include "GameState.h"
+#include "MoveManager.h"
 
-class GameManager {
+struct GameManager {
     GameState game;
     int gameDifficulty;
-    bool isRunning;
 
     GameManager() {
-        isRunning = false;
     }
 
     void start() {
@@ -22,9 +21,7 @@ class GameManager {
 
         // Main game loop, user chooses opponent or exits program
         while (std::cin >> userOption) {
-
             std::cin.ignore();
-            
 
             switch (userOption) {
                 case 1:
@@ -33,7 +30,6 @@ class GameManager {
                     GameState game;
                     this->game = game;
                     runGame(userOption);
-
                     break;
                 }
                 case 4: {
@@ -54,44 +50,43 @@ class GameManager {
         while (true) {
             system("clear");
             std::cout << game << std::endl;
+
+            // User makes first move
+            Vec move = playerMove(game);
+            game.play(move.x, move.y);
+            system("clear");
+            std::cout << game << std::endl;
+
+            // Print results and wait for user input if game is done
             if (game.done) {
+                std::string continueCheck = ".";
+                while (!continueCheck.empty()) {
+                    system("clear");
+                    std::cout << game << std::endl;
+                    printResult(game.winner);
+                    std::getline(std::cin, continueCheck);
+                }
                 break;
             }
-            Vec move = playerMove();
+
+            // Opponents makes next move
+            move = opponentMove(gameType, game);
             game.play(move.x, move.y);
-            if (gameType == 1) {
-                system("clear");
-                std::cout << game << std::endl;
-            }
+            system("clear");
+            std::cout << game << std::endl;
+
+            // Print results and wait for user input if game is done
             if (game.done) {
+                std::string continueCheck = ".";
+                while (!continueCheck.empty()) {
+                    system("clear");
+                    std::cout << game << std::endl;
+                    printResult(game.winner);
+                    std::getline(std::cin, continueCheck);
+                }
                 break;
             }
-            move = otherMove(gameType);
-            game.play(move.x, move.y);
         }
-    }
-
-    Vec playerMove() {//player move 
-
-    }
-
-    Vec otherMove(int gameType) {
-        switch(gameType) {
-            case 1: {
-                return playerMove();
-            }
-            case 2: {
-                return validMove();
-            }
-            case 3: {
-                return findBestMove();
-            }
-        }
-    }
-
-    Vec validMove() {}//easy
-    Vec findBestMove() {//impossible 
-
     }
 
     // =========== Console printing methods ===========
@@ -106,14 +101,19 @@ class GameManager {
         std::cout << "Select an option: ";
     }
 
-    void printGame(std::vector<std::string> guesses, std::string answer, std::string gameCondition, std::vector<std::vector<std::string>> colors) {
-        system("clear");
-
+    void printResult(int winner) {
+        if (winner == 0) {
+            std::cout << "You won!" << std::endl;
+        } else if (winner == 1) {
+            std::cout << "You lost!" << std::endl;
+        } else if (winner == 2) {
+            std::cout << "Draw!" << std::endl;
+        } else {
+            std::cout << "Game in progress!" << std::endl;
+        }
+        std::cout << "Press [enter] to continue" << std::endl;
     }
     // =========== Console printing methods ===========
-
-    void play() {
-    }
 };
 
 #endif
