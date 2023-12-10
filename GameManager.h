@@ -1,3 +1,8 @@
+// Contributers:
+// Hajin Park
+// Aaron Romero
+// Aram Shkhyan
+
 #ifndef GAME_MANAGER_H
 #define GAME_MANAGER_H
 
