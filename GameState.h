@@ -2,6 +2,7 @@
 #define GAME_STATE_H
 
 #include <iostream>
+#include "DataStructures.h"
 
 struct Vec{
     int x;

@@ -4,9 +4,6 @@
 #include <climits>
 #include "Reward.h"
 #include "GameState.h"
-#include "Vertex.h"
-#include "Graph.h"
-#include "Queue.h"
 
 
 // Option 1: human opponent

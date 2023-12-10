@@ -2,7 +2,7 @@
 #define REWARD_H
 
 #include "GameState.h"
-#include "Vertex.h"
+
 
 int getReward(Vertex<GameState>* start, int player){
     if (start->neighbors.size() == 0){
