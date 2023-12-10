@@ -2,6 +2,7 @@
 #define MOVE_MANANGER_HClass
 
 #include <climits>
+#include <limits>
 #include "Reward.h"
 #include "GameState.h"
 
@@ -10,8 +11,10 @@
 Vec playerMove(GameState game) {
     int x, y;
     while (true) {
-        std::cout << "Enter your move (row and column): ";
-        std::cin >> x >> y;
+        std::cout << (!game.currentTurn ? "(X) " : "(O) ") << "Enter your row: ";
+        std::cin >> x;
+        std::cout << (!game.currentTurn ? "(X) " : "(O) ") << "Enter your column: ";
+        std::cin >> y;
 
         if (std::cin.fail()) {
             std::cin.clear(); 
@@ -44,6 +47,8 @@ Vec validMove(GameState game) {
             }
         }
     }
+
+    return Vec(0, 0);
 }
 
 // Option 3: impossible AI opponent
@@ -103,6 +108,9 @@ Vec opponentMove(int gameType, GameState game) {
         }
         case 3: {
             return bestMove(game);
+        }
+        default: {
+            return Vec(0, 0);
         }
     }
 }

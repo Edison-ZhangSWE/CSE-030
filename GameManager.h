@@ -3,9 +3,9 @@
 
 #include <sstream>
 #include <iostream>
-#include <vector>
 #include "GameState.h"
 #include "MoveManager.h"
+
 
 struct GameManager {
     GameState game;
@@ -59,13 +59,11 @@ struct GameManager {
 
             // Print results and wait for user input if game is done
             if (game.done) {
-                std::string continueCheck = ".";
-                while (!continueCheck.empty()) {
-                    system("clear");
-                    std::cout << game << std::endl;
-                    printResult(game.winner);
-                    std::getline(std::cin, continueCheck);
-                }
+                system("clear");
+                std::cout << game << std::endl;
+                printResult(game.winner);
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                std::cin.get(); // Wait for user to press Enter
                 break;
             }
 
@@ -77,13 +75,11 @@ struct GameManager {
 
             // Print results and wait for user input if game is done
             if (game.done) {
-                std::string continueCheck = ".";
-                while (!continueCheck.empty()) {
-                    system("clear");
-                    std::cout << game << std::endl;
-                    printResult(game.winner);
-                    std::getline(std::cin, continueCheck);
-                }
+                system("clear");
+                std::cout << game << std::endl;
+                printResult(game.winner);
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                std::cin.get(); // Wait for user to press Enter
                 break;
             }
         }
@@ -103,9 +99,9 @@ struct GameManager {
 
     void printResult(int winner) {
         if (winner == 0) {
-            std::cout << "You won!" << std::endl;
+            std::cout << "Player X has won!" << std::endl;
         } else if (winner == 1) {
-            std::cout << "You lost!" << std::endl;
+            std::cout << "Player O has won!" << std::endl;
         } else if (winner == 2) {
             std::cout << "Draw!" << std::endl;
         } else {

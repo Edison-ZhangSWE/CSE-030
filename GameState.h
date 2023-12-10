@@ -4,6 +4,7 @@
 #include <iostream>
 #include "DataStructures.h"
 
+
 struct Vec{
     int x;
     int y;
